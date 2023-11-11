@@ -6,10 +6,10 @@ export default function Home() {
     <div className='items-center'>
       <Image src='' alt=''></Image>
       <h1>Muhammad Ahmad</h1>
-      <p>
+      <div>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia quaerat
         veniam cupiditate?
-      </p>
+      </div>
       <Link href='/contact'>Click Me</Link>
     </div>
   );
