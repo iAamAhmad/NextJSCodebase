@@ -19,6 +19,10 @@ export default function RootLayout({
     <main className='flex space-x-5 divide-x-2'>
       <div>
         <h1>Search</h1>
+        <h1>Search</h1>
+        <h1>Search</h1>
+        <h1>Search</h1>
+        <h1>Search</h1>
       </div>
       <div className='flex-1 pl-5'>
         <Search/>
