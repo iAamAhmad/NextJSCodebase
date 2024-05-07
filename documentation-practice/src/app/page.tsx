@@ -1,8 +1,9 @@
+import HomePage from "./home/page";
 
 export default function Home() {
   return (
-   <div className="">
-    <h1>Hello from NExt JS</h1>
-   </div>
+    <div className=''>
+      <HomePage />
+    </div>
   );
 }
