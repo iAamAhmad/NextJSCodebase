@@ -3,7 +3,9 @@ import React from 'react'
 const FirstBlog = () => {
   return (
     <div>
-      First Blog
+      <p>First Product</p>
+      <p>Second Product</p>
+      <p>Third Product</p>
     </div>
   )
 }
