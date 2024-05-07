@@ -1,11 +1,16 @@
-import React from 'react'
+import Link from "next/link";
+import React from "react";
 
 const Blog = () => {
   return (
     <div>
-       Blog
-    </div>
-  )
-}
+      <Link href={"/"} className='bg-slate-300 p-1'>
+        Go Back To Home
+      </Link>
 
-export default Blog
+      <p>Blog Page!</p>
+    </div>
+  );
+};
+
+export default Blog;
