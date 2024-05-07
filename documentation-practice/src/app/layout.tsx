@@ -18,9 +18,15 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <div className=''>
-          <h1>this is Header</h1>
+          <header className='bg-slate-400 py-5 text-center sticky top-0 mb-5'>
+            <p>Header Items</p>
+          </header>
+
           {children}
-          <h2>This Is Footer</h2>
+
+          <footer className='bg-slate-100 py-5 text-center mt-5 sticky bottom-0'>
+            <p>These Are Footer items!</p>
+          </footer>
         </div>
       </body>
     </html>
