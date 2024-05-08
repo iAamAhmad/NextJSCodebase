@@ -25,7 +25,7 @@ export default function RootLayout({
 
           {children}
 
-          <footer className='bg-slate-100 py-5 text-center mt-5 sticky bottom-0'>
+          <footer className='bg-slate-100 py-5 text-center mt-5'>
             <p>These Are Footer items!</p>
           </footer>
         </div>
