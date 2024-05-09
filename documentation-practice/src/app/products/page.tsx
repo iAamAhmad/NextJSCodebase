@@ -1,67 +1,63 @@
-"use client";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+ // Assuming you have a rootReducer
+import {
+  addProduct,
+  deleteProduct,
+  getProducts,
+  updateProduct,
+} from "@/lib/redux/reducers/user/1_productsReducer";
+import { AppDispatch } from "@/lib/redux/store";
 
-import axios from "axios";
-
-import Image from "next/image";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
 interface Product {
   id: number;
   image: string;
   title: string;
   description: string;
 }
+
 const FirstBlog = () => {
-  function truncateDescription(description: string) {
-    const maxWords = 12;
-    const words = description.split(" ");
-    if (words.length > maxWords) {
-      return words.slice(0, maxWords).join(" ") + "";
-    } else {
-      return description;
-    }
-  }
-  function truncateTitle(description: string) {
-    const maxWords = 3;
-    const words = description.split(" ");
-    if (words.length > maxWords) {
-      return words.slice(0, maxWords).join(" ") + "";
-    } else {
-      return description;
-    }
-  }
-  const [products, setProducts] = useState<Product[]>([]);
+  const dispatch = useDispatch.withTypes<AppDispatch>();
+  const products = useSelector((state:any) => state.products.products);
 
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        console.log("The Response From API", response.data);
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    getProducts();
-  }, []);
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const handleDeleteProduct = async (productId: number) => {
+    await dispatch(deleteProduct(productId));
+  };
+
+  const handleAddProduct = async () => {
+    await dispatch(addProduct());
+  };
+
+  const handleUpdateProduct = async (productId: number) => {
+    await dispatch(updateProduct(productId));
+  };
 
   return (
     <div className='flex flex-wrap'>
-      {products.map((product) => (
+      <button
+        className='bg-green-500 text-white p-4'
+        onClick={handleAddProduct}>
+        Add New Product
+      </button>
+      {products.map((product: Product) => (
         <div
           key={product.id}
           className='bg-slate-100 border w-48 my-2 mx-2 flex-grow'>
-          <Image
-            src={product.image}
-            alt={product.title}
-            width={100}
-            height={100}
-            className='object-fill h-48 w-96'
-          />
-          <div className='p-2 '>
-            <p className='font-bold'>{truncateTitle(product.title)}</p>
-            <p>{truncateDescription(product.description)}</p>
-          </div>
+          {/* Your UI code */}
+          <button
+            className='p-2 bg-green-800 text-white rounded-lg mb-2 mr-2'
+            onClick={() => handleUpdateProduct(product.id)}>
+            Edit
+          </button>
+          <button
+            className='p-2 bg-red-800 text-white rounded-lg mb-2'
+            onClick={() => handleDeleteProduct(product.id)}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
