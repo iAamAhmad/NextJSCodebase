@@ -1,13 +1,9 @@
-import { useEffect } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
- // Assuming you have a rootReducer
-import {
-  addProduct,
-  deleteProduct,
-  getProducts,
-  updateProduct,
-} from "@/lib/redux/reducers/user/1_productsReducer";
-import { AppDispatch } from "@/lib/redux/store";
+import { AppDispatch } from "../store/store";
+import axios from "axios";
+import { add } from "../store/productSlice";
 
 interface Product {
   id: number;
@@ -16,26 +12,26 @@ interface Product {
   description: string;
 }
 
-const FirstBlog = () => {
+const ProductsPage = () => {
   const dispatch = useDispatch.withTypes<AppDispatch>();
-  const products = useSelector((state:any) => state.products.products);
+  const [apiProducts, setApiProducts] = useState([]);
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
-
-  const handleDeleteProduct = async (productId: number) => {
-    await dispatch(deleteProduct(productId));
-  };
-
-  const handleAddProduct = async () => {
-    await dispatch(addProduct());
-  };
-
-  const handleUpdateProduct = async (productId: number) => {
-    await dispatch(updateProduct(productId));
-  };
-
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("https://fakestoreapi.com/products");
+        const data = await res.json();
+        console.log(data);
+        setApiProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProducts();
+  }, []);
+  function handleAddProduct(product: any) {
+    dispatch(add(product));
+  }
   return (
     <div className='flex flex-wrap'>
       <button
@@ -43,14 +39,14 @@ const FirstBlog = () => {
         onClick={handleAddProduct}>
         Add New Product
       </button>
-      {products.map((product: Product) => (
+      {apiProducts.map((product: Product) => (
         <div
           key={product.id}
           className='bg-slate-100 border w-48 my-2 mx-2 flex-grow'>
           {/* Your UI code */}
           <button
             className='p-2 bg-green-800 text-white rounded-lg mb-2 mr-2'
-            onClick={() => handleUpdateProduct(product.id)}>
+            onClick={() => handleUpdateProduct()}>
             Edit
           </button>
           <button
@@ -58,10 +54,10 @@ const FirstBlog = () => {
             onClick={() => handleDeleteProduct(product.id)}>
             Delete
           </button>
-        </div>
+         </div>
       ))}
     </div>
   );
 };
 
-export default FirstBlog;
+export default ProductsPage;
