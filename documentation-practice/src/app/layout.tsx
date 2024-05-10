@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <StoreProvider>
+        <StoreProvider >
           <div className=''>
             <Header />
-
+  
             {children}
             <footer className='bg-slate-100 py-5 text-center mt-5'>
               <p>These Are Footer items!</p>
